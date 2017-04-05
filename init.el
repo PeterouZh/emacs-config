@@ -24,8 +24,12 @@
 (desktop-save-mode t)
 (setq auto-save-default t)
 
+;; close auto backup
+(setq make-backup-files nil)
+
 ;;; display a horizontal bar cursor 
-(set-default 'cursor-type 'hollow)
+(set-default 'cursor-type 'box)
+;;(set-default 'cursor-type 'hollow)
 
 ;;; C-x C-f hint
 (ido-mode)
@@ -510,6 +514,8 @@ Version 2016-06-18"
 (require-package 'window-numbering)
 (window-numbering-mode)
 ;;;------------------------------------------------------------
+(require-package 'edit-server)
+(edit-server-start)
 
 ;;;************************************************************
 ;;; End install plugin **************************************
