@@ -21,6 +21,8 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
+(global-hl-line-mode t)
+
 (desktop-save-mode t)
 (setq auto-save-default t)
 
@@ -42,8 +44,6 @@
 ;;; highlight matching parenthesis
 (show-paren-mode)
 
-;;; highlight current line
-(global-hl-line-mode -1)
 
 ;;; winner-undo/redo
 (winner-mode t)
@@ -203,7 +203,7 @@ Version 2016-06-18"
 (add-hook 'after-init-hook #'global-ycmd-mode)
 
 (set-variable 'ycmd-server-command
-              '("python" "/home/shhs/usr/soft/ycmd/ycmd"))
+              '("/home/shhs/anaconda2/bin/python" "/home/shhs/usr/soft/ycmd/ycmd"))
 (set-variable 'ycmd-global-config "/home/shhs/.ycm_extra_conf.py")
 (set-variable 'ycmd-extra-conf-whitelist '("please add project .ycm_extra_conf.py"))
 ;;; company-ycmd 
@@ -211,8 +211,8 @@ Version 2016-06-18"
 (require 'company-ycmd)
 (company-ycmd-setup)
 
-(global-set-key [(f12)] 'ycmd-goto-definition)
-(global-set-key [(S-f12)] 'ycmd-goto-declaration)
+(global-set-key [(f5)] 'ycmd-goto-definition)
+(global-set-key [(S-f5)] 'ycmd-goto-declaration)
 
 ;;;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 (require-package 'nlinum)
@@ -240,8 +240,8 @@ Version 2016-06-18"
 ;; \__ \\ \/\/ / | |  | || (__| __ |  \ \/\/ / | || .` |
 ;; |___/ \_/\_/ |___| |_| \___|_||_|   \_/\_/ |___|_|\_|
 
-;; (require-package 'switch-window)
-;; (global-set-key (kbd "C-M-z") 'switch-window)
+ (require-package 'switch-window)
+ (global-set-key (kbd "C-M-z") 'switch-window)
 ;;;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ;;    _   _    ___ _  _   _
 ;;   /_\ | |  | _ \ || | /_\
@@ -335,7 +335,7 @@ Version 2016-06-18"
 
 ;; (require-package 'helm)
 (require-package 'find-file-in-project)
-(global-set-key (kbd "<f7>") 'find-file-in-project)
+(global-set-key (kbd "<f4>") 'find-file-in-project)
 ;; Usage,
 ;; - `M-x find-file-in-project-by-selected' use the selected region
 ;; as the keyword to search file.  Or you need provide the keyword
@@ -411,7 +411,7 @@ Version 2016-06-18"
 (add-hook 'term-mode-hook (lambda()
         (setq yas-dont-activate t)))
 (setq multi-term-program "/bin/bash")
-(global-set-key (kbd "<f8>") 'multi-term)
+(global-set-key (kbd "<f3>") 'multi-term)
 ;;;------------------------------------------------------------
 ;;    _  _   _  ___ _____ _____  __
 ;;   /_\| | | |/ __|_   _| __\ \/ /
@@ -513,6 +513,21 @@ Version 2016-06-18"
 
 (require-package 'window-numbering)
 (window-numbering-mode)
+;;;------------------------------------------------------------
+;;  _  _ _      _____   ____  __ ___  ___  _
+;; | || | |    / __\ \ / /  \/  | _ )/ _ \| |
+;; | __ | |__  \__ \\ V /| |\/| | _ \ (_) | |__
+;; |_||_|____| |___/ |_| |_|  |_|___/\___/|____|
+(require-package 'highlight-symbol)
+(require 'highlight-symbol)
+(highlight-symbol-mode t)
+(highlight-symbol-nav-mode t)
+(setq highlight-symbol-disable '())
+(add-hook 'after-change-major-mode-hook
+          (lambda ()
+            (if (null (memql major-mode highlight-symbol-disable))
+                (highlight-symbol-nav-mode t)
+	        (highlight-symbol-mode t))))
 ;;;------------------------------------------------------------
 (require-package 'edit-server)
 (edit-server-start)
