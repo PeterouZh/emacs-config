@@ -187,6 +187,8 @@ Version 2016-06-18"
 ;;; flycheck
 (require-package 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
+(with-eval-after-load 'flycheck
+  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
 
 ;;;  flycheck-ycmd
 (require-package 'flycheck-ycmd)
@@ -522,12 +524,20 @@ Version 2016-06-18"
 (require 'highlight-symbol)
 (highlight-symbol-mode t)
 (highlight-symbol-nav-mode t)
-(setq highlight-symbol-disable '())
+(setq highlight-symbol-disable '(Term))
 (add-hook 'after-change-major-mode-hook
           (lambda ()
             (if (null (memql major-mode highlight-symbol-disable))
                 (highlight-symbol-nav-mode t)
 	        (highlight-symbol-mode t))))
+;;;------------------------------------------------------------
+;;  _  _ _      ___ _  _ ___  ___ _  _ _____
+;; | || | |    |_ _| \| |   \| __| \| |_   _|
+;; | __ | |__   | || .` | |) | _|| .` | | |
+;; |_||_|____| |___|_|\_|___/|___|_|\_| |_|
+(require-package 'highlight-indent-guides)
+(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+(setq highlight-indent-guides-method column)
 ;;;------------------------------------------------------------
 (require-package 'edit-server)
 (edit-server-start)
