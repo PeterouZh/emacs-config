@@ -187,8 +187,6 @@ Version 2016-06-18"
 ;;; flycheck
 (require-package 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
-(with-eval-after-load 'flycheck
-  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
 
 ;;;  flycheck-ycmd
 (require-package 'flycheck-ycmd)
@@ -537,7 +535,7 @@ Version 2016-06-18"
 ;; |_||_|____| |___|_|\_|___/|___|_|\_| |_|
 (require-package 'highlight-indent-guides)
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-(setq highlight-indent-guides-method column)
+(setq highlight-indent-guides-method 'character)
 ;;;------------------------------------------------------------
 (require-package 'edit-server)
 (edit-server-start)
