@@ -56,9 +56,6 @@
 (setq auto-mode-alist (append
                   '(("\\.cu$" . c++-mode))
                     auto-mode-alist))
-;;; Open yas-minor-mode when open an .py file
-(add-hook 'python-mode (lambda ()
-			 (yas-minor-mode t)))
 ;;; Doxymacs doxygen
 (add-hook 'c-mode-common-hook 'doxymacs-mode)
 
@@ -327,6 +324,7 @@ Version 2016-06-18"
 
 (require-package 'yasnippet)
 (yas-global-mode t)
+(add-hook 'prog-mode-hook 'yas-minor-mode)
 ;;;------------------------------------------------------------
 ;;  ___ ___ _  _ ___    ___ ___ _    ___
 ;; | __|_ _| \| |   \  | __|_ _| |  | __|
@@ -465,10 +463,11 @@ Version 2016-06-18"
       (list "TODO(t)" "|" "CANCELED(c)" "DONE(d)"))
 ;; 将项目转接在各文件之间，方便清理和回顾。
 (custom-set-variables
-'(org-refile-targets
-  (quote
-   (("inbox.org" :level . 1)("canceled.org" :level . 1) ("finished.org":level . 1))
-)))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-refile-targets (quote (("inbox.org" :level . 1) ("canceled.org" :level . 1) ("finished.org" :level . 1)))))
 ;; 快速打开inbox
 (defun inbox() (interactive) (find-file org-default-notes-file))
 (global-set-key "\C-cz" 'inbox)
@@ -520,14 +519,10 @@ Version 2016-06-18"
 ;; |_||_|____| |___/ |_| |_|  |_|___/\___/|____|
 (require-package 'highlight-symbol)
 (require 'highlight-symbol)
-(highlight-symbol-mode t)
-(highlight-symbol-nav-mode t)
-(setq highlight-symbol-disable '(Term))
-(add-hook 'after-change-major-mode-hook
-          (lambda ()
-            (if (null (memql major-mode highlight-symbol-disable))
-                (highlight-symbol-nav-mode t)
-	        (highlight-symbol-mode t))))
+;; (highlight-symbol-mode t)
+;; (highlight-symbol-nav-mode t)
+(add-hook 'prog-mode-hook 'highlight-symbol-mode)
+(add-hook 'prog-mode-hook 'highlight-symbol-nav-mode)
 ;;;------------------------------------------------------------
 ;;  _  _ _      ___ _  _ ___  ___ _  _ _____
 ;; | || | |    |_ _| \| |   \| __| \| |_   _|
@@ -550,3 +545,10 @@ Version 2016-06-18"
 ;;;
 
 (put 'dired-find-alternate-file 'disabled nil)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(highlight-symbol-face ((t (:background "dark green"))))
+ '(term-color-white ((t (:background "lime green" :foreground "black")))))
