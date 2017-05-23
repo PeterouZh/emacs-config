@@ -110,13 +110,13 @@ Version 2016-06-18"
 ;;;*******************************************************************
 ;;; Max window size when start emacs.
 ;;;*******************************************************************
-(defun my-max-window()
-  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-			 '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0))
-  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-			 '(2 "_NET_WM_STATE_MAXIMIZED_VERT" 0))
-  )
-(run-with-idle-timer 1 nil 'my-max-window)
+;; (defun my-max-window()
+;;   (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+;; 			 '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0))
+;;   (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+;; 			 '(2 "_NET_WM_STATE_MAXIMIZED_VERT" 0))
+;;   )
+;(run-with-idle-timer 1 nil 'my-max-window)
 ;;;*******************************************************************
 
 ;;;************************************************************
@@ -448,7 +448,7 @@ Version 2016-06-18"
 ;;; GTD 日程管理
 (global-set-key (kbd "C-c c")  'remember)
 ;; GTD 收集项目的模板设置 
-(org-remember-insinuate)
+;(org-remember-insinuate)
 (setq org-directory "~/usr/notes/GTD")
 
 (setq org-remember-templates '(
@@ -467,7 +467,11 @@ Version 2016-06-18"
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-refile-targets (quote (("inbox.org" :level . 1) ("canceled.org" :level . 1) ("finished.org" :level . 1)))))
+ '(org-refile-targets
+   (quote
+    (("inbox.org" :level . 1)
+     ("canceled.org" :level . 1)
+     ("finished.org" :level . 1)))))
 ;; 快速打开inbox
 (defun inbox() (interactive) (find-file org-default-notes-file))
 (global-set-key "\C-cz" 'inbox)
@@ -551,4 +555,5 @@ Version 2016-06-18"
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(highlight-symbol-face ((t (:background "dark green"))))
+ '(term-color-green ((t (:background "black" :foreground "white"))))
  '(term-color-white ((t (:background "lime green" :foreground "black")))))
